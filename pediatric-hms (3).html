@@ -1,0 +1,1941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KiddoCare — Pediatric HMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky:      #e0f4ff;
+  --sky2:     #c8eaff;
+  --mint:     #d4f7ec;
+  --peach:    #ffe8d6;
+  --lavender: #ede9fe;
+  --yellow:   #fef9c3;
+  --rose:     #ffe4e6;
+  --coral:    #ff6b6b;
+  --teal:     #0ea5e9;
+  --teal-d:   #0284c7;
+  --green:    #10b981;
+  --green-d:  #059669;
+  --purple:   #8b5cf6;
+  --orange:   #f97316;
+  --pink:     #ec4899;
+  --navy:     #1e3a5f;
+  --white:    #ffffff;
+  --text:     #1e293b;
+  --text-soft:#475569;
+  --text-mute:#94a3b8;
+  --border:   #e2e8f0;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow:    0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  --r:  16px;
+  --r2: 24px;
+  --r3: 32px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Nunito',sans-serif;
+  background:#f0f9ff;
+  color:var(--text);
+  font-size:14px;
+  overflow-x:hidden;
+}
+
+/* ─── FLOATING BACKGROUND DECO ─── */
+.bg-deco{
+  position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;
+}
+.cloud{
+  position:absolute;
+  border-radius:100px;
+  background:rgba(255,255,255,0.5);
+  filter:blur(1px);
+  animation:floatCloud linear infinite;
+}
+.cloud::before,.cloud::after{
+  content:'';position:absolute;
+  background:inherit;border-radius:50%;
+}
+.c1{width:120px;height:40px;top:8%;left:-140px;animation-duration:30s;animation-delay:0s}
+.c1::before{width:60px;height:60px;top:-25px;left:15px}
+.c1::after{width:45px;height:45px;top:-20px;left:55px}
+.c2{width:90px;height:30px;top:22%;left:-110px;animation-duration:40s;animation-delay:-12s;opacity:.7}
+.c2::before{width:45px;height:45px;top:-18px;left:10px}
+.c2::after{width:35px;height:35px;top:-14px;left:40px}
+.c3{width:140px;height:45px;top:55%;left:-165px;animation-duration:35s;animation-delay:-7s;opacity:.6}
+.c3::before{width:70px;height:70px;top:-30px;left:18px}
+.c3::after{width:55px;height:55px;top:-24px;left:66px}
+.c4{width:100px;height:32px;top:75%;left:-120px;animation-duration:45s;animation-delay:-20s;opacity:.5}
+.c4::before{width:52px;height:52px;top:-20px;left:12px}
+.c4::after{width:40px;height:40px;top:-16px;left:48px}
+
+@keyframes floatCloud{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(calc(100vw + 200px))}
+}
+
+.bubble{
+  position:absolute;border-radius:50%;
+  animation:floatBubble ease-in-out infinite alternate;
+  opacity:.15;
+}
+.b1{width:200px;height:200px;background:var(--teal);top:10%;right:5%;animation-duration:6s}
+.b2{width:150px;height:150px;background:var(--pink);top:40%;right:15%;animation-duration:8s;animation-delay:-3s}
+.b3{width:100px;height:100px;background:var(--purple);bottom:20%;right:8%;animation-duration:5s;animation-delay:-1s}
+.b4{width:80px;height:80px;background:var(--orange);bottom:40%;left:3%;animation-duration:7s;animation-delay:-4s}
+
+@keyframes floatBubble{
+  from{transform:translateY(0) scale(1)}
+  to{transform:translateY(-30px) scale(1.05)}
+}
+
+/* ─── LOGIN ─── */
+#loginPage{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:linear-gradient(160deg,#cff4ff 0%,#e8f5ff 40%,#fce4ff 100%);
+  position:relative;
+  z-index:1;
+}
+
+.login-wrap{
+  width:100%;max-width:900px;
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--white);
+  border-radius:var(--r3);
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+  animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+@keyframes popIn{
+  from{opacity:0;transform:scale(.85) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+/* Left panel illustration */
+.login-illo{
+  background:linear-gradient(145deg,#0ea5e9,#38bdf8,#7dd3fc);
+  padding:48px 36px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+
+.illo-bg-circle{
+  position:absolute;
+  border-radius:50%;background:rgba(255,255,255,.1);
+}
+.ibc1{width:300px;height:300px;top:-60px;right:-80px}
+.ibc2{width:200px;height:200px;bottom:-40px;left:-60px}
+.ibc3{width:100px;height:100px;bottom:40%;left:20px}
+
+.illo-title{
+  font-family:'Baloo 2',cursive;
+  font-size:32px;font-weight:800;
+  color:white;text-align:center;
+  line-height:1.2;margin-bottom:8px;
+  position:relative;
+  text-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.illo-sub{
+  color:rgba(255,255,255,.85);
+  font-size:14px;text-align:center;
+  position:relative;margin-bottom:32px;
+  font-weight:600;
+}
+
+.doctor-scene{
+  position:relative;
+  width:200px;height:220px;
+  margin:0 auto;
+}
+
+/* SVG Doctor character */
+.doc-svg{
+  width:200px;height:220px;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.2));
+  animation:docBounce 3s ease-in-out infinite;
+}
+
+@keyframes docBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.illo-stats{
+  display:flex;gap:16px;margin-top:24px;position:relative;
+}
+
+.illo-stat{
+  background:rgba(255,255,255,.2);
+  border:1px solid rgba(255,255,255,.3);
+  backdrop-filter:blur(8px);
+  border-radius:12px;padding:10px 16px;
+  text-align:center;color:white;
+}
+
+.illo-stat-val{font-size:20px;font-weight:800;font-family:'Baloo 2',cursive}
+.illo-stat-lbl{font-size:10px;opacity:.8;font-weight:700;letter-spacing:.5px}
+
+/* Right panel form */
+.login-form{padding:48px 40px;}
+
+.form-brand{
+  display:flex;align-items:center;gap:10px;margin-bottom:6px;
+}
+.form-brand-icon{
+  width:44px;height:44px;
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;
+  box-shadow:0 4px 12px rgba(14,165,233,.3);
+}
+.form-brand-name{
+  font-family:'Baloo 2',cursive;
+  font-size:24px;font-weight:800;color:var(--navy);
+}
+
+.form-tagline{
+  color:var(--text-mute);font-size:13px;
+  margin-bottom:28px;font-weight:600;
+}
+
+.role-pills{
+  display:flex;gap:8px;margin-bottom:24px;
+}
+
+.role-pill{
+  flex:1;
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:12px 8px;
+  border:2.5px solid var(--border);
+  border-radius:var(--r);
+  background:white;cursor:pointer;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  font-family:'Nunito',sans-serif;
+  font-size:11px;font-weight:800;
+  color:var(--text-mute);
+  letter-spacing:.3px;
+}
+
+.role-pill:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.role-pill.active.admin-pill{border-color:#f97316;background:#fff7ed;color:#f97316;box-shadow:0 4px 12px rgba(249,115,22,.2)}
+.role-pill.active.doctor-pill{border-color:#0ea5e9;background:#e0f9ff;color:#0ea5e9;box-shadow:0 4px 12px rgba(14,165,233,.2)}
+.role-pill.active.patient-pill{border-color:#10b981;background:#d4f7ec;color:#10b981;box-shadow:0 4px 12px rgba(16,185,129,.2)}
+
+.role-pill-icon{font-size:26px;line-height:1}
+.role-pill-name{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+
+.hint-card{
+  border-radius:12px;
+  padding:12px 14px;
+  margin-bottom:20px;
+  font-size:12px;font-weight:600;
+  line-height:1.7;
+  display:flex;gap:10px;align-items:flex-start;
+}
+.hint-card.admin{background:#fff7ed;border:1.5px solid #fed7aa;color:#9a3412}
+.hint-card.doctor{background:#e0f9ff;border:1.5px solid #bae6fd;color:#0c4a6e}
+.hint-card.patient{background:#d4f7ec;border:1.5px solid #a7f3d0;color:#064e3b}
+
+.fi{
+  display:flex;flex-direction:column;gap:6px;margin-bottom:16px;
+}
+.fi label{font-size:13px;font-weight:700;color:var(--text)}
+.fi input{
+  padding:12px 16px;
+  border:2px solid var(--border);
+  border-radius:12px;
+  font-family:'Nunito',sans-serif;
+  font-size:14px;font-weight:600;
+  outline:none;transition:all .2s;
+  background:#f8fafc;color:var(--text);
+}
+.fi input:focus{border-color:var(--teal);background:white;box-shadow:0 0 0 4px rgba(14,165,233,.1)}
+
+.login-btn{
+  width:100%;padding:14px;
+  border:none;border-radius:14px;
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
+  color:white;font-family:'Baloo 2',cursive;
+  font-size:17px;font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(14,165,233,.35);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  letter-spacing:.3px;
+}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(14,165,233,.45)}
+.login-btn:active{transform:scale(.98)}
+
+.err-msg{
+  background:#fff1f2;border:1.5px solid #fecdd3;
+  border-radius:10px;padding:10px 14px;
+  color:#be123c;font-size:13px;font-weight:700;
+  margin-bottom:14px;display:none;
+  align-items:center;gap:8px;
+}
+
+@media(max-width:700px){
+  .login-wrap{grid-template-columns:1fr}
+  .login-illo{display:none}
+}
+
+/* ─── APP LAYOUT ─── */
+#appPage{display:none;min-height:100vh;position:relative;z-index:1}
+
+.app-layout{
+  display:flex;min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:260px;flex-shrink:0;
+  background:var(--white);
+  border-right:2px solid #e8f4fd;
+  display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;
+  z-index:200;
+  box-shadow:4px 0 24px rgba(14,165,233,.06);
+  transition:transform .3s ease;
+}
+
+.sb-brand{
+  padding:20px 20px 16px;
+  border-bottom:2px solid #e8f4fd;
+  display:flex;align-items:center;gap:12px;
+}
+
+.sb-logo{
+  width:46px;height:46px;
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;
+  box-shadow:0 4px 12px rgba(14,165,233,.3);
+  animation:logoWiggle 4s ease-in-out infinite;
+  flex-shrink:0;
+}
+
+@keyframes logoWiggle{
+  0%,100%{transform:rotate(0)}
+  20%{transform:rotate(-8deg)}
+  40%{transform:rotate(6deg)}
+  60%{transform:rotate(-4deg)}
+  80%{transform:rotate(2deg)}
+}
+
+.sb-brand-text .name{
+  font-family:'Baloo 2',cursive;
+  font-size:18px;font-weight:800;color:var(--navy);
+  line-height:1.1;
+}
+.sb-brand-text .ver{
+  font-size:10px;color:var(--text-mute);
+  font-weight:700;letter-spacing:1px;text-transform:uppercase;
+}
+
+.sb-user{
+  padding:16px 20px;
+  border-bottom:2px solid #e8f4fd;
+  display:flex;align-items:center;gap:12px;
+}
+
+.sb-avatar{
+  width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  position:relative;flex-shrink:0;
+}
+
+.sb-avatar::after{
+  content:'';
+  position:absolute;bottom:1px;right:1px;
+  width:10px;height:10px;border-radius:50%;
+  background:#22c55e;border:2px solid white;
+}
+
+.sb-uname{font-weight:800;font-size:14px;color:var(--text);line-height:1.2}
+.sb-urole{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:800;
+  padding:2px 8px;border-radius:100px;
+  letter-spacing:.5px;text-transform:uppercase;
+  margin-top:3px;
+}
+.role-admin{background:#fff7ed;color:#ea580c}
+.role-doctor{background:#e0f9ff;color:#0284c7}
+.role-patient{background:#d4f7ec;color:#059669}
+
+.sb-nav{flex:1;padding:12px 12px;overflow-y:auto}
+
+.nav-label{
+  font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-mute);padding:8px 10px 4px;
+}
+
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;
+  border-radius:14px;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  margin-bottom:2px;
+  color:var(--text-soft);font-weight:700;font-size:13px;
+  position:relative;
+}
+
+.nav-item:hover{
+  background:var(--sky);color:var(--teal);
+  transform:translateX(4px);
+}
+
+.nav-item.active{
+  background:linear-gradient(135deg,#e0f9ff,#cff4ff);
+  color:var(--teal);
+  box-shadow:0 2px 10px rgba(14,165,233,.15);
+}
+
+.nav-item.active::before{
+  content:'';
+  position:absolute;left:0;top:25%;bottom:25%;
+  width:4px;border-radius:100px;
+  background:var(--teal);
+}
+
+.nav-icon{
+  width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+  transition:transform .2s;
+}
+
+.nav-item:hover .nav-icon{transform:scale(1.15) rotate(-5deg)}
+.nav-item.active .nav-icon{background:rgba(14,165,233,.15)}
+
+.sb-footer{
+  padding:14px 16px;
+  border-top:2px solid #e8f4fd;
+}
+
+.logout-item{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border-radius:14px;
+  cursor:pointer;color:var(--text-mute);
+  font-weight:700;font-size:13px;
+  transition:all .2s;
+}
+.logout-item:hover{background:#fff1f2;color:#dc2626}
+
+/* MAIN */
+.main{
+  margin-left:260px;
+  flex:1;display:flex;flex-direction:column;
+  min-height:100vh;
+}
+
+.topbar{
+  background:white;
+  border-bottom:2px solid #e8f4fd;
+  padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+
+.tb-left{
+  display:flex;align-items:center;gap:12px;
+}
+
+.tb-title{
+  font-family:'Baloo 2',cursive;
+  font-size:22px;font-weight:700;color:var(--navy);
+}
+
+.tb-right{
+  display:flex;align-items:center;gap:10px;
+}
+
+.tb-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#fff1f2;border:1.5px solid #fecdd3;
+  padding:5px 12px;border-radius:100px;
+  font-size:11px;font-weight:800;color:#dc2626;
+}
+
+.redis-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#dc2626;
+  animation:blink 1.5s infinite;
+}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.tb-notif{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--sky);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+  position:relative;transition:all .2s;
+}
+.tb-notif:hover{background:var(--sky2);transform:scale(1.1)}
+.tb-notif-dot{
+  position:absolute;top:6px;right:6px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--coral);border:2px solid white;
+}
+
+.content{padding:24px 28px;flex:1}
+
+/* ─── COMPONENTS ─── */
+
+/* Stats */
+.stats-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:16px;margin-bottom:24px;
+}
+
+.stat-tile{
+  border-radius:var(--r2);
+  padding:22px 20px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:var(--shadow);
+  animation:tileIn .4s cubic-bezier(.34,1.56,.64,1) both;
+  position:relative;overflow:hidden;
+  cursor:default;
+  transition:transform .2s;
+}
+.stat-tile:hover{transform:translateY(-4px)}
+
+.stat-tile::after{
+  content:'';position:absolute;
+  bottom:-20px;right:-20px;
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+}
+
+@keyframes tileIn{
+  from{opacity:0;transform:scale(.8) translateY(10px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+
+.st-icon{font-size:32px;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.15))}
+.st-val{font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;line-height:1}
+.st-lbl{font-size:12px;font-weight:700;margin-top:2px;opacity:.85}
+
+.tile-sky{background:linear-gradient(135deg,#38bdf8,#7dd3fc);color:white}
+.tile-mint{background:linear-gradient(135deg,#34d399,#6ee7b7);color:white}
+.tile-peach{background:linear-gradient(135deg,#fb923c,#fbbf24);color:white}
+.tile-rose{background:linear-gradient(135deg,#f472b6,#fb7185);color:white}
+.tile-purple{background:linear-gradient(135deg,#a78bfa,#c4b5fd);color:white}
+
+/* Card */
+.card{
+  background:white;
+  border-radius:var(--r2);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  margin-bottom:20px;
+  border:1.5px solid #f0f9ff;
+}
+
+.card-head{
+  padding:18px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:2px solid #f0f9ff;
+}
+
+.card-title{
+  font-family:'Baloo 2',cursive;
+  font-size:17px;font-weight:700;color:var(--navy);
+  display:flex;align-items:center;gap:8px;
+}
+
+.card-body{padding:22px}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:10px 18px;border:none;border-radius:12px;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;
+  cursor:pointer;transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  letter-spacing:.2px;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+
+.btn-sky{background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:white;box-shadow:0 4px 14px rgba(14,165,233,.3)}
+.btn-sky:hover{box-shadow:0 8px 20px rgba(14,165,233,.4)}
+.btn-mint{background:linear-gradient(135deg,#10b981,#34d399);color:white;box-shadow:0 4px 14px rgba(16,185,129,.3)}
+.btn-peach{background:linear-gradient(135deg,#f97316,#fb923c);color:white;box-shadow:0 4px 14px rgba(249,115,22,.3)}
+.btn-rose{background:linear-gradient(135deg,#ec4899,#f472b6);color:white;box-shadow:0 4px 14px rgba(236,72,153,.3)}
+.btn-ghost{background:#f1f5f9;color:var(--text-soft)}
+.btn-ghost:hover{background:#e2e8f0}
+.btn-outline{background:white;color:var(--teal);border:2px solid #bae6fd}
+.btn-outline:hover{background:var(--sky)}
+.btn-sm{padding:7px 14px;font-size:12px;border-radius:10px}
+.btn-xs{padding:5px 10px;font-size:11px;border-radius:8px}
+.btn-danger{background:#fff1f2;color:#dc2626;border:1.5px solid #fecdd3}
+.btn-danger:hover{background:#fecdd3}
+
+/* Table */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{
+  padding:12px 16px;
+  text-align:left;
+  font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.8px;
+  color:var(--text-mute);
+  background:#f8fafc;
+  border-bottom:2px solid #e8f4fd;
+}
+td{
+  padding:14px 16px;
+  border-bottom:1.5px solid #f0f9ff;
+  color:var(--text-soft);font-size:13px;font-weight:600;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafcff}
+
+/* Badge */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:4px 10px;border-radius:100px;
+  font-size:11px;font-weight:800;letter-spacing:.3px;
+}
+.bg-sky{background:#e0f9ff;color:#0284c7}
+.bg-mint{background:#d4f7ec;color:#059669}
+.bg-peach{background:#fff7ed;color:#ea580c}
+.bg-rose{background:#fff1f2;color:#dc2626}
+.bg-lavender{background:#ede9fe;color:#6d28d9}
+.bg-yellow{background:#fef9c3;color:#a16207}
+.bg-gray{background:#f1f5f9;color:#64748b}
+
+/* Modal */
+.overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(15,23,42,.4);
+  backdrop-filter:blur(4px);
+  z-index:600;
+  align-items:center;justify-content:center;padding:20px;
+}
+.overlay.open{display:flex}
+
+.modal{
+  background:white;
+  border-radius:var(--r2);
+  width:100%;max-width:520px;
+  max-height:92vh;overflow-y:auto;
+  animation:modalPop .3s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
+}
+
+@keyframes modalPop{
+  from{opacity:0;transform:scale(.85)}
+  to{opacity:1;transform:scale(1)}
+}
+
+.modal-head{
+  padding:20px 24px;
+  border-bottom:2px solid #f0f9ff;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,#f0f9ff,#e0f9ff);
+}
+
+.modal-title{
+  font-family:'Baloo 2',cursive;
+  font-size:18px;font-weight:700;color:var(--navy);
+}
+
+.xbtn{
+  width:34px;height:34px;border-radius:50%;
+  background:white;border:1.5px solid var(--border);
+  cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.xbtn:hover{background:#fff1f2;border-color:#fecdd3;color:#dc2626;transform:rotate(90deg)}
+
+.modal-body{padding:24px}
+.modal-foot{
+  padding:16px 24px;
+  border-top:2px solid #f0f9ff;
+  display:flex;gap:10px;justify-content:flex-end;
+  background:#fafcff;
+}
+
+/* Form */
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.fg label{font-size:12px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.5px}
+.fg input,.fg select,.fg textarea{
+  padding:11px 14px;
+  border:2px solid #e8f4fd;
+  border-radius:12px;
+  font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
+  outline:none;transition:all .2s;background:#f8fafc;color:var(--text);
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{
+  border-color:var(--teal);background:white;
+  box-shadow:0 0 0 4px rgba(14,165,233,.1);
+}
+.fg textarea{resize:vertical;min-height:80px}
+.fg select{cursor:pointer}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* Alert */
+.alert{
+  padding:12px 16px;border-radius:12px;
+  font-size:13px;font-weight:700;margin-bottom:16px;
+  display:flex;align-items:flex-start;gap:8px;line-height:1.5;
+}
+.alert-sky{background:#e0f9ff;border:1.5px solid #bae6fd;color:#0c4a6e}
+.alert-mint{background:#d4f7ec;border:1.5px solid #a7f3d0;color:#064e3b}
+.alert-peach{background:#fff7ed;border:1.5px solid #fed7aa;color:#7c2d12}
+
+/* Progress */
+.pbar{background:#e8f4fd;border-radius:100px;height:10px;overflow:hidden}
+.pfill{height:100%;border-radius:100px;transition:width 1.2s ease}
+
+/* Empty */
+.empty{
+  text-align:center;padding:60px 20px;
+}
+.empty-illo{font-size:56px;margin-bottom:12px;animation:docBounce 3s ease-in-out infinite}
+.empty p{color:var(--text-mute);font-size:14px;font-weight:700}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  background:var(--navy);color:white;
+  padding:14px 20px;border-radius:16px;
+  font-size:13px;font-weight:800;
+  transform:translateY(80px);opacity:0;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  max-width:340px;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:var(--shadow-lg);
+}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.ok{background:linear-gradient(135deg,#10b981,#34d399)}
+.toast.err{background:linear-gradient(135deg,#dc2626,#f87171)}
+
+/* Quick action chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:9px 16px;border-radius:100px;
+  font-size:13px;font-weight:800;cursor:pointer;
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  border:2px solid transparent;
+}
+.chip:hover{transform:translateY(-2px) scale(1.03)}
+
+/* Rx card */
+.rx-strip{
+  border-radius:14px;overflow:hidden;
+  border:2px solid #e0f9ff;
+  margin-bottom:16px;
+  transition:transform .2s;
+}
+.rx-strip:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+
+.rx-head{
+  background:linear-gradient(135deg,#e0f9ff,#cff4ff);
+  padding:16px 20px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+
+.rx-body{background:white;padding:16px 20px}
+
+.rx-med{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;
+  background:#f0f9ff;
+  border-radius:10px;margin-bottom:8px;
+  font-size:13px;font-weight:700;
+  border-left:3px solid var(--teal);
+}
+
+/* Doctor card grid */
+.doc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:16px;
+}
+
+.doc-card{
+  background:white;border-radius:var(--r2);
+  border:2px solid #e8f4fd;
+  padding:24px 20px;
+  text-align:center;
+  transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  cursor:default;
+}
+.doc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:#bae6fd}
+
+.doc-avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,#e0f9ff,#cff4ff);
+  border:3px solid #bae6fd;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px;margin:0 auto 12px;
+  animation:docBounce 3s ease-in-out infinite;
+}
+.doc-name{font-family:'Baloo 2',cursive;font-size:16px;font-weight:700;color:var(--navy)}
+.doc-spec{font-size:12px;color:var(--text-mute);font-weight:700;margin:4px 0 10px}
+.doc-stats{
+  display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;
+}
+
+/* Patient row fun */
+.pat-row{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;
+  border-bottom:2px solid #f0f9ff;
+  transition:background .15s;
+}
+.pat-row:hover{background:#f8fdff}
+.pat-row:last-child{border-bottom:none}
+
+.pat-avatar{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+  border:2px solid #e0f9ff;
+}
+
+/* Appointment strip */
+.appt-strip{
+  display:flex;align-items:center;gap:14px;
+  padding:16px 20px;border-bottom:2px solid #f0f9ff;
+  transition:background .15s;
+}
+.appt-strip:hover{background:#f8fdff}
+.appt-strip:last-child{border-bottom:none}
+.appt-time{
+  background:linear-gradient(135deg,#0ea5e9,#38bdf8);
+  color:white;border-radius:12px;
+  padding:10px 14px;text-align:center;
+  flex-shrink:0;min-width:70px;
+  box-shadow:0 4px 10px rgba(14,165,233,.25);
+}
+.appt-time .day{font-size:11px;font-weight:800;opacity:.85}
+.appt-time .hr{font-family:'Baloo 2',cursive;font-size:16px;font-weight:700}
+
+/* Invoice card */
+.inv-card{
+  border-radius:var(--r);overflow:hidden;
+  border:2px solid #f0f9ff;margin-bottom:12px;
+  transition:transform .2s;
+}
+.inv-card:hover{transform:translateX(4px);border-color:#bae6fd}
+.inv-head{
+  background:linear-gradient(135deg,#f8fafc,#f0f9ff);
+  padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.inv-body{padding:14px 18px;background:white;font-size:12px;color:var(--text-mute)}
+
+/* Status select */
+.ss{
+  padding:6px 10px;border-radius:8px;
+  border:1.5px solid #e0f9ff;
+  font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;
+  outline:none;background:#f0f9ff;cursor:pointer;
+}
+
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .stats-row{grid-template-columns:1fr 1fr}
+  .fg2{grid-template-columns:1fr}
+  .doc-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating BG -->
+<div class="bg-deco">
+  <div class="cloud c1"></div>
+  <div class="cloud c2"></div>
+  <div class="cloud c3"></div>
+  <div class="cloud c4"></div>
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- ══════════════════════ LOGIN ══════════════════════ -->
+<div id="loginPage">
+  <div class="login-wrap">
+    <!-- Illustration -->
+    <div class="login-illo">
+      <div class="illo-bg-circle ibc1"></div>
+      <div class="illo-bg-circle ibc2"></div>
+      <div class="illo-bg-circle ibc3"></div>
+
+      <div class="illo-title">Welcome to<br>KiddoCare! 🌈</div>
+      <div class="illo-sub">Smiles start with healthy kids</div>
+
+      <!-- Animated Doctor SVG -->
+      <svg class="doc-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <ellipse cx="100" cy="190" rx="55" ry="18" fill="rgba(255,255,255,0.15)"/>
+        <!-- Coat -->
+        <rect x="60" y="110" width="80" height="90" rx="20" fill="white"/>
+        <!-- Coat lapels -->
+        <path d="M100 110 L80 130 L80 110Z" fill="#e0f9ff"/>
+        <path d="M100 110 L120 130 L120 110Z" fill="#e0f9ff"/>
+        <!-- Stethoscope -->
+        <path d="M82 125 Q75 140 78 155 Q82 165 90 162" stroke="#0ea5e9" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="90" cy="164" r="6" fill="#0ea5e9"/>
+        <!-- Head -->
+        <ellipse cx="100" cy="80" rx="36" ry="38" fill="#fde68a"/>
+        <!-- Hair -->
+        <path d="M64 72 Q68 40 100 38 Q132 40 136 72 Q128 60 100 58 Q72 60 64 72Z" fill="#1e293b"/>
+        <!-- Ears -->
+        <ellipse cx="64" cy="82" rx="8" ry="10" fill="#fde68a"/>
+        <ellipse cx="136" cy="82" rx="8" ry="10" fill="#fde68a"/>
+        <!-- Eyes -->
+        <ellipse cx="88" cy="80" rx="7" ry="8" fill="white"/>
+        <ellipse cx="112" cy="80" rx="7" ry="8" fill="white"/>
+        <circle cx="89" cy="81" r="4" fill="#1e293b"/>
+        <circle cx="113" cy="81" r="4" fill="#1e293b"/>
+        <circle cx="91" cy="79" r="1.5" fill="white"/>
+        <circle cx="115" cy="79" r="1.5" fill="white"/>
+        <!-- Smile -->
+        <path d="M88 96 Q100 108 112 96" stroke="#1e293b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Cheeks -->
+        <circle cx="80" cy="92" r="8" fill="#fca5a5" opacity=".5"/>
+        <circle cx="120" cy="92" r="8" fill="#fca5a5" opacity=".5"/>
+        <!-- Doctor cap -->
+        <rect x="72" y="48" width="56" height="12" rx="6" fill="#0ea5e9"/>
+        <rect x="68" y="44" width="64" height="10" rx="5" fill="#38bdf8"/>
+        <!-- Cross on cap -->
+        <rect x="96" y="42" width="8" height="16" rx="2" fill="white" opacity=".9"/>
+        <rect x="90" y="47" width="20" height="6" rx="2" fill="white" opacity=".9"/>
+        <!-- Arms -->
+        <path d="M60 120 Q40 140 45 160" stroke="white" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <path d="M140 120 Q160 140 155 160" stroke="white" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <!-- Clipboard in right hand -->
+        <rect x="148" y="148" width="28" height="34" rx="4" fill="#fef9c3" stroke="#fbbf24" stroke-width="1.5"/>
+        <line x1="153" y1="157" x2="171" y2="157" stroke="#fbbf24" stroke-width="1.5"/>
+        <line x1="153" y1="163" x2="171" y2="163" stroke="#fbbf24" stroke-width="1.5"/>
+        <line x1="153" y1="169" x2="165" y2="169" stroke="#fbbf24" stroke-width="1.5"/>
+        <!-- Left hand - teddy bear -->
+        <circle cx="42" cy="162" r="12" fill="#fb923c"/>
+        <circle cx="36" cy="153" r="7" fill="#fb923c"/>
+        <circle cx="48" cy="153" r="7" fill="#fb923c"/>
+        <circle cx="39" cy="152" r="2" fill="#1e293b"/>
+        <circle cx="45" cy="152" r="2" fill="#1e293b"/>
+        <path d="M39 158 Q42 161 45 158" stroke="#1e293b" stroke-width="1.2" fill="none"/>
+        <!-- Legs -->
+        <rect x="80" y="190" width="16" height="28" rx="8" fill="#0ea5e9"/>
+        <rect x="104" y="190" width="16" height="28" rx="8" fill="#0ea5e9"/>
+        <ellipse cx="88" cy="218" rx="12" ry="7" fill="#1e293b"/>
+        <ellipse cx="112" cy="218" rx="12" ry="7" fill="#1e293b"/>
+      </svg>
+
+      <div class="illo-stats">
+        <div class="illo-stat">
+          <div class="illo-stat-val">500+</div>
+          <div class="illo-stat-lbl">Kids Cared</div>
+        </div>
+        <div class="illo-stat">
+          <div class="illo-stat-val">24/7</div>
+          <div class="illo-stat-lbl">Support</div>
+        </div>
+        <div class="illo-stat">
+          <div class="illo-stat-val">4.9⭐</div>
+          <div class="illo-stat-lbl">Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="login-form">
+      <div class="form-brand">
+        <div class="form-brand-icon">🏥</div>
+        <div class="form-brand-name">KiddoCare HMS</div>
+      </div>
+      <p class="form-tagline">Sign in to your account 🌟</p>
+
+      <div class="role-pills">
+        <button class="role-pill admin-pill active" onclick="pickRole('admin',this)">
+          <span class="role-pill-icon">👑</span>
+          <span class="role-pill-name">Admin</span>
+        </button>
+        <button class="role-pill doctor-pill" onclick="pickRole('doctor',this)">
+          <span class="role-pill-icon">🩺</span>
+          <span class="role-pill-name">Doctor</span>
+        </button>
+        <button class="role-pill patient-pill" onclick="pickRole('patient',this)">
+          <span class="role-pill-icon">👶</span>
+          <span class="role-pill-name">Patient</span>
+        </button>
+      </div>
+
+      <div class="hint-card admin" id="hintBox">
+        <span style="font-size:20px">👑</span>
+        <div>
+          <strong>Admin Login</strong><br>
+          Email: admin@kiddocare.com<br>
+          Password: admin123
+        </div>
+      </div>
+
+      <div id="loginErr" class="err-msg">⚠️ <span id="errText"></span></div>
+
+      <div class="fi">
+        <label>Email Address</label>
+        <input type="email" id="lEmail" value="admin@kiddocare.com" placeholder="your@email.com">
+      </div>
+      <div class="fi">
+        <label>Password</label>
+        <input type="password" id="lPass" value="admin123" placeholder="••••••••">
+      </div>
+
+      <button class="login-btn" onclick="doLogin()">
+        🚀 Let's Go!
+      </button>
+
+      <p style="text-align:center;margin-top:16px;font-size:11px;color:var(--text-mute);font-weight:700">
+        🔐 Secured with JWT Authentication
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ APP ══════════════════════ -->
+<div id="appPage">
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-brand">
+        <div class="sb-logo">🏥</div>
+        <div class="sb-brand-text">
+          <div class="name">KiddoCare</div>
+          <div class="ver">HMS · v2.0</div>
+        </div>
+      </div>
+
+      <div class="sb-user">
+        <div class="sb-avatar" id="sbAvatar" style="background:linear-gradient(135deg,#e0f9ff,#cff4ff)">👑</div>
+        <div>
+          <div class="sb-uname" id="sbName">Admin</div>
+          <div class="sb-urole role-admin" id="sbRole">👑 Admin</div>
+        </div>
+      </div>
+
+      <nav class="sb-nav" id="sbNav"></nav>
+
+      <div class="sb-footer">
+        <div class="logout-item" onclick="doLogout()">
+          <span style="font-size:20px">👋</span>
+          <span>Sign Out</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="topbar">
+        <div class="tb-left">
+          <div class="tb-title" id="tbTitle">Dashboard</div>
+        </div>
+        <div class="tb-right">
+          <div class="tb-badge"><div class="redis-dot"></div> Redis Live</div>
+          <button class="tb-notif">🔔<span class="tb-notif-dot"></span></button>
+        </div>
+      </div>
+
+      <div class="content" id="contentArea"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ MODALS ══════════════════════ -->
+
+<!-- Book Appointment -->
+<div class="overlay" id="mAppt">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">📅 Book Appointment</div>
+      <button class="xbtn" onclick="closeM('mAppt')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg">
+        <label>Select Doctor</label>
+        <select id="aDoctor">
+          <option>Dr. Priya Sharma — Pediatrician</option>
+          <option>Dr. Rahul Mehta — Child Neurologist</option>
+          <option>Dr. Sunita Rao — Child Cardiologist</option>
+          <option>Dr. Arjun Patel — Pediatric Orthopedic</option>
+        </select>
+      </div>
+      <div class="fg" id="aPatientGroup">
+        <label>Patient (Child)</label>
+        <select id="aPatient">
+          <option>Aarav Sharma (Age 7)</option>
+          <option>Diya Patel (Age 5)</option>
+          <option>Rohan Gupta (Age 10)</option>
+          <option>Ananya Singh (Age 3)</option>
+        </select>
+      </div>
+      <div class="fg2">
+        <div class="fg">
+          <label>Date</label>
+          <input type="date" id="aDate">
+        </div>
+        <div class="fg">
+          <label>Time Slot</label>
+          <select id="aTime">
+            <option>09:00 AM</option><option>09:30 AM</option>
+            <option>10:00 AM</option><option>10:30 AM</option>
+            <option>11:00 AM</option><option>11:30 AM</option>
+            <option>02:00 PM</option><option>02:30 PM</option>
+            <option>03:00 PM</option><option>04:00 PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Reason / Symptoms</label>
+        <textarea id="aReason" placeholder="Describe the child's symptoms or reason for visit..."></textarea>
+      </div>
+      <div class="fg">
+        <label>Visit Type</label>
+        <select id="aType">
+          <option>General Check-up</option>
+          <option>Vaccination</option>
+          <option>Follow-up</option>
+          <option>Emergency</option>
+          <option>Routine Growth Check</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeM('mAppt')">Cancel</button>
+      <button class="btn btn-sky" onclick="bookAppt()">✅ Confirm Booking</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prescription -->
+<div class="overlay" id="mRx">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">💊 Write Prescription</div>
+      <button class="xbtn" onclick="closeM('mRx')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg2">
+        <div class="fg">
+          <label>Child's Name</label>
+          <input type="text" id="rxPatient" placeholder="Patient name">
+        </div>
+        <div class="fg">
+          <label>Age</label>
+          <input type="text" id="rxAge" placeholder="e.g. 7 years">
+        </div>
+      </div>
+      <div class="fg">
+        <label>Diagnosis</label>
+        <input type="text" id="rxDiag" placeholder="e.g. Viral Fever, Asthma">
+      </div>
+      <div class="fg">
+        <label>Medications</label>
+        <textarea id="rxMeds" placeholder="e.g.&#10;Paracetamol Syrup 5ml — 3 times daily&#10;Amoxicillin 250mg — Twice daily with food"></textarea>
+      </div>
+      <div class="fg">
+        <label>Doctor's Notes</label>
+        <textarea id="rxNotes" placeholder="Diet, rest, special care instructions for parents..."></textarea>
+      </div>
+      <div class="fg2">
+        <div class="fg">
+          <label>Duration</label>
+          <input type="text" id="rxDur" placeholder="e.g. 5 days">
+        </div>
+        <div class="fg">
+          <label>Follow-up Date</label>
+          <input type="date" id="rxFU">
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeM('mRx')">Cancel</button>
+      <button class="btn btn-mint" onclick="saveRx()">💊 Save Prescription</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invoice -->
+<div class="overlay" id="mInv">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">🧾 Generate Invoice</div>
+      <button class="xbtn" onclick="closeM('mInv')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg2">
+        <div class="fg">
+          <label>Patient</label>
+          <select id="invPat">
+            <option>Aarav Sharma</option><option>Diya Patel</option>
+            <option>Rohan Gupta</option><option>Ananya Singh</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Doctor</label>
+          <select id="invDoc">
+            <option>Dr. Priya Sharma</option><option>Dr. Rahul Mehta</option>
+            <option>Dr. Sunita Rao</option><option>Dr. Arjun Patel</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Services</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="fg2">
+            <input type="text" class="fg" style="padding:10px 12px;border:2px solid #e8f4fd;border-radius:10px;font-family:Nunito,sans-serif;font-size:13px;font-weight:600" placeholder="Service" value="Consultation">
+            <input type="number" class="fg" style="padding:10px 12px;border:2px solid #e8f4fd;border-radius:10px;font-family:Nunito,sans-serif;font-size:13px;font-weight:600" placeholder="₹" value="700">
+          </div>
+          <div class="fg2">
+            <input type="text" class="fg" style="padding:10px 12px;border:2px solid #e8f4fd;border-radius:10px;font-family:Nunito,sans-serif;font-size:13px;font-weight:600" placeholder="Service" value="Vaccination">
+            <input type="number" class="fg" style="padding:10px 12px;border:2px solid #e8f4fd;border-radius:10px;font-family:Nunito,sans-serif;font-size:13px;font-weight:600" placeholder="₹" value="500">
+          </div>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Payment Status</label>
+        <select id="invStatus">
+          <option>Paid</option><option>Pending</option><option>Partial</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeM('mInv')">Cancel</button>
+      <button class="btn btn-peach" onclick="genInvoice()">🧾 Generate</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Doctor -->
+<div class="overlay" id="mAddDoc">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">🩺 Add New Doctor</div>
+      <button class="xbtn" onclick="closeM('mAddDoc')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fg2">
+        <div class="fg">
+          <label>Full Name</label>
+          <input type="text" id="dName" placeholder="Dr. Name">
+        </div>
+        <div class="fg">
+          <label>Specialization</label>
+          <select id="dSpec">
+            <option>Pediatrician</option><option>Child Neurologist</option>
+            <option>Child Cardiologist</option><option>Pediatric Orthopedic</option>
+            <option>Neonatologist</option><option>Child Psychiatrist</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg2">
+        <div class="fg">
+          <label>Email</label>
+          <input type="email" id="dEmail" placeholder="dr@kiddocare.com">
+        </div>
+        <div class="fg">
+          <label>Phone</label>
+          <input type="text" id="dPhone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="fg2">
+        <div class="fg">
+          <label>Experience</label>
+          <input type="text" id="dExp" placeholder="e.g. 10 years">
+        </div>
+        <div class="fg">
+          <label>Consultation Fee ₹</label>
+          <input type="number" id="dFee" placeholder="700">
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeM('mAddDoc')">Cancel</button>
+      <button class="btn btn-sky" onclick="addDoc()">➕ Add Doctor</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────
+//  DATA
+// ─────────────────────────────────────────────────────────
+const USERS = {
+  'admin@kiddocare.com':   {pass:'admin123', role:'admin',   name:'Admin Kaur',        avatar:'👑', emoji:'👑'},
+  'doctor@kiddocare.com':  {pass:'doctor123',role:'doctor',  name:'Dr. Priya Sharma',  avatar:'🩺', spec:'Pediatrician'},
+  'doctor2@kiddocare.com': {pass:'doctor123',role:'doctor',  name:'Dr. Rahul Mehta',   avatar:'🩺', spec:'Child Neurologist'},
+  'patient@kiddocare.com': {pass:'child123', role:'patient', name:"Aarav's Parent",    avatar:'👶', child:'Aarav Sharma', age:7},
+  'patient2@kiddocare.com':{pass:'child123', role:'patient', name:"Diya's Parent",     avatar:'👶', child:'Diya Patel',   age:5},
+};
+
+const DB = {
+  doctors:[
+    {id:1,name:'Dr. Priya Sharma', spec:'Pediatrician',       email:'doctor@kiddocare.com', phone:'+91 98765 43210',exp:'12 years',fee:700, patients:68,status:'Active',emoji:'👩‍⚕️'},
+    {id:2,name:'Dr. Rahul Mehta',  spec:'Child Neurologist',  email:'doctor2@kiddocare.com',phone:'+91 87654 32109',exp:'9 years', fee:900, patients:42,status:'Active',emoji:'👨‍⚕️'},
+    {id:3,name:'Dr. Sunita Rao',   spec:'Child Cardiologist', email:'sunita@kiddocare.com', phone:'+91 76543 21098',exp:'15 years',fee:1000,patients:35,status:'Active',emoji:'👩‍⚕️'},
+    {id:4,name:'Dr. Arjun Patel',  spec:'Pediatric Orthopedic',email:'arjun@kiddocare.com', phone:'+91 65432 10987',exp:'7 years', fee:800, patients:29,status:'Active',emoji:'👨‍⚕️'},
+  ],
+  patients:[
+    {id:1,name:'Aarav Sharma', age:7, blood:'O+', parent:'Rajesh Sharma', email:'patient@kiddocare.com', phone:'+91 99887 76655',condition:'Asthma',lastVisit:'2025-02-14',status:'Active',emoji:'🧒'},
+    {id:2,name:'Diya Patel',   age:5, blood:'A+', parent:'Meera Patel',   email:'patient2@kiddocare.com',phone:'+91 88776 65544',condition:'Growth Delay',lastVisit:'2025-02-10',status:'Active',emoji:'👧'},
+    {id:3,name:'Rohan Gupta',  age:10,blood:'B-', parent:'Amit Gupta',    email:'rohan@kiddocare.com',   phone:'+91 77665 54433',condition:'ADHD',lastVisit:'2025-02-08',status:'Active',emoji:'👦'},
+    {id:4,name:'Ananya Singh', age:3, blood:'AB+',parent:'Priya Singh',   email:'ananya@kiddocare.com',  phone:'+91 66554 43322',condition:'Fever',lastVisit:'2025-02-05',status:'Active',emoji:'👶'},
+  ],
+  appointments:[
+    {id:1,patient:'Aarav Sharma', doctor:'Dr. Priya Sharma',date:'2025-02-24',time:'10:00 AM',type:'Vaccination',    status:'Confirmed',reason:'Monthly vaccination schedule'},
+    {id:2,patient:'Diya Patel',   doctor:'Dr. Rahul Mehta', date:'2025-02-24',time:'11:30 AM',type:'Follow-up',      status:'Confirmed',reason:'Growth monitoring check'},
+    {id:3,patient:'Rohan Gupta',  doctor:'Dr. Priya Sharma',date:'2025-02-25',time:'09:30 AM',type:'General Check-up',status:'Pending',  reason:'Routine annual check'},
+    {id:4,patient:'Ananya Singh', doctor:'Dr. Sunita Rao',  date:'2025-02-25',time:'02:00 PM',type:'Emergency',      status:'Completed',reason:'High fever 104°F'},
+    {id:5,patient:'Aarav Sharma', doctor:'Dr. Priya Sharma',date:'2025-02-26',time:'04:00 PM',type:'Follow-up',      status:'Pending',  reason:'Asthma management'},
+  ],
+  prescriptions:[
+    {id:1,patient:'Aarav Sharma',age:'7 yrs',doctor:'Dr. Priya Sharma',date:'2025-02-14',diag:'Bronchial Asthma',meds:'Salbutamol Inhaler 100mcg — 2 puffs when needed\nMontelukast Syrup 5ml — Once daily at night',notes:'Avoid cold air & dusty areas. Always carry inhaler. Warm liquids help.',dur:'30 days',fu:'2025-03-14'},
+    {id:2,patient:'Diya Patel',  age:'5 yrs',doctor:'Dr. Rahul Mehta',  date:'2025-02-10',diag:'Developmental Delay',meds:'Multivitamin Syrup 5ml — Once daily\nCalcium + D3 drops 0.5ml — Twice daily',notes:'Increase outdoor play. Regular speech therapy sessions. Nutritious diet.',dur:'60 days',fu:'2025-04-10'},
+    {id:3,patient:'Ananya Singh',age:'3 yrs',doctor:'Dr. Sunita Rao',   date:'2025-02-05',diag:'Viral Fever',       meds:'Paracetamol Drops 1ml — Every 6 hrs if temp >100°F\nORS Sachets — After every loose motion',notes:'Plenty of fluids. Rest. Sponge bath for high fever. Return if temp >103°F.',dur:'5 days',fu:'2025-02-10'},
+  ],
+  invoices:[
+    {id:'INV-001',patient:'Aarav Sharma', doctor:'Dr. Priya Sharma',date:'2025-02-14',services:['Consultation ₹700','Nebulization ₹400','Spacer Device ₹300'],total:1400,status:'Paid'},
+    {id:'INV-002',patient:'Diya Patel',   doctor:'Dr. Rahul Mehta', date:'2025-02-10',services:['Consultation ₹900','EEG Test ₹2500'],total:3400,status:'Paid'},
+    {id:'INV-003',patient:'Ananya Singh', doctor:'Dr. Sunita Rao',  date:'2025-02-05',services:['Emergency ₹1500','Medicines ₹350'],total:1850,status:'Pending'},
+    {id:'INV-004',patient:'Rohan Gupta',  doctor:'Dr. Priya Sharma',date:'2025-01-28',services:['Consultation ₹700','Growth Assessment ₹500','Lab Tests ₹800'],total:2000,status:'Paid'},
+  ],
+};
+
+let CU = null; // current user
+let selectedRole = 'admin';
+
+// ─────────────────────────────────────────────────────────
+//  AUTH
+// ─────────────────────────────────────────────────────────
+function pickRole(role, btn) {
+  selectedRole = role;
+  document.querySelectorAll('.role-pill').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const hints = {
+    admin:  {cls:'admin',  icon:'👑', title:'Admin Login',   email:'admin@kiddocare.com',  pass:'admin123'},
+    doctor: {cls:'doctor', icon:'🩺', title:'Doctor Login',  email:'doctor@kiddocare.com', pass:'doctor123'},
+    patient:{cls:'patient',icon:'👶', title:'Parent Login',  email:'patient@kiddocare.com',pass:'child123'},
+  };
+  const h = hints[role];
+  document.getElementById('hintBox').className = `hint-card ${h.cls}`;
+  document.getElementById('hintBox').innerHTML = `<span style="font-size:20px">${h.icon}</span><div><strong>${h.title}</strong><br>Email: ${h.email}<br>Password: ${h.pass}</div>`;
+  document.getElementById('lEmail').value = h.email;
+  document.getElementById('lPass').value = h.pass;
+}
+
+function doLogin() {
+  const email = document.getElementById('lEmail').value.trim();
+  const pass  = document.getElementById('lPass').value.trim();
+  const errEl = document.getElementById('loginErr');
+  const errTx = document.getElementById('errText');
+
+  const user = USERS[email];
+  if (!user || user.pass !== pass) {
+    errTx.textContent = 'Oops! Wrong email or password. Try again 😅';
+    errEl.style.display = 'flex'; return;
+  }
+  if (user.role !== selectedRole) {
+    errTx.textContent = `This is a ${user.role} account but you selected ${selectedRole}!`;
+    errEl.style.display = 'flex'; return;
+  }
+  errEl.style.display = 'none';
+  CU = {...user, email};
+  const token = btoa(JSON.stringify({email, role:user.role, iat:Date.now()}));
+  sessionStorage.setItem('kc_token', token);
+  sessionStorage.setItem('kc_user', JSON.stringify(CU));
+  toast('🎉 Welcome back! JWT token issued.','ok');
+  launchApp();
+}
+
+function doLogout() {
+  sessionStorage.clear(); CU = null;
+  document.getElementById('loginPage').style.display='flex';
+  document.getElementById('appPage').style.display='none';
+  toast('👋 Signed out. Take care!');
+}
+
+// ─────────────────────────────────────────────────────────
+//  APP INIT
+// ─────────────────────────────────────────────────────────
+function launchApp() {
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('appPage').style.display='block';
+
+  document.getElementById('sbAvatar').textContent = CU.avatar;
+  document.getElementById('sbName').textContent   = CU.name;
+  const rb = document.getElementById('sbRole');
+  const roleLabel = {admin:'👑 Admin', doctor:'🩺 Doctor', patient:'👶 Parent'}[CU.role];
+  rb.textContent = roleLabel;
+  rb.className = 'sb-urole role-' + CU.role;
+
+  buildNav();
+  go('dashboard');
+}
+
+const NAV = {
+  admin:[
+    {icon:'🏠',label:'Dashboard',    v:'dashboard'},
+    {icon:'🩺',label:'Doctors',      v:'doctors'},
+    {icon:'👧',label:'Children',     v:'patients'},
+    {icon:'📅',label:'Appointments', v:'appointments'},
+    {icon:'💊',label:'Prescriptions',v:'prescriptions'},
+    {icon:'🧾',label:'Billing',      v:'billing'},
+    {icon:'⚙️',label:'System',       v:'system'},
+  ],
+  doctor:[
+    {icon:'🏠',label:'My Dashboard',  v:'dashboard'},
+    {icon:'📅',label:'Appointments',  v:'appointments'},
+    {icon:'👧',label:'My Patients',   v:'patients'},
+    {icon:'💊',label:'Prescriptions', v:'prescriptions'},
+  ],
+  patient:[
+    {icon:'🏠',label:'Home',          v:'dashboard'},
+    {icon:'📅',label:'Book Appointment',v:'appointments'},
+    {icon:'💊',label:'My Prescriptions',v:'prescriptions'},
+    {icon:'🧾',label:'Bills & Invoices',v:'billing'},
+  ],
+};
+
+function buildNav() {
+  const items = NAV[CU.role];
+  document.getElementById('sbNav').innerHTML =
+    `<div class="nav-label">Menu</div>` +
+    items.map(n=>`
+      <div class="nav-item" id="nv-${n.v}" onclick="go('${n.v}')">
+        <div class="nav-icon">${n.icon}</div>
+        <span>${n.label}</span>
+      </div>
+    `).join('');
+}
+
+function go(view) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const el = document.getElementById('nv-'+view);
+  if(el) el.classList.add('active');
+  const titles = {dashboard:'Dashboard 🏠',doctors:'Our Doctors 🩺',patients:'Children Records 👧',appointments:'Appointments 📅',prescriptions:'Prescriptions 💊',billing:'Billing & Invoices 🧾',system:'System Info ⚙️'};
+  document.getElementById('tbTitle').textContent = titles[view]||view;
+  const views = {dashboard:renderDash,doctors:renderDoctors,patients:renderPatients,appointments:renderAppts,prescriptions:renderRx,billing:renderBilling,system:renderSystem};
+  if(views[view]){ document.getElementById('contentArea').innerHTML=''; views[view](); }
+}
+
+// ─────────────────────────────────────────────────────────
+//  DASHBOARD
+// ─────────────────────────────────────────────────────────
+function renderDash() {
+  const el = document.getElementById('contentArea');
+  const role = CU.role;
+
+  if(role==='admin') {
+    const rev = DB.invoices.reduce((s,i)=>s+(i.status==='Paid'?i.total:0),0);
+    el.innerHTML = `
+      <div class="alert alert-sky">⚡ Stats loaded from <strong>Redis cache</strong> — 2ms response time vs 120ms DB query. Cache hit rate: <strong>94%</strong></div>
+      <div class="stats-row">
+        <div class="stat-tile tile-sky" style="animation-delay:.0s"><span class="st-icon">🩺</span><div><div class="st-val">${DB.doctors.length}</div><div class="st-lbl">Doctors</div></div></div>
+        <div class="stat-tile tile-mint" style="animation-delay:.1s"><span class="st-icon">👧</span><div><div class="st-val">${DB.patients.length}</div><div class="st-lbl">Children</div></div></div>
+        <div class="stat-tile tile-peach" style="animation-delay:.2s"><span class="st-icon">📅</span><div><div class="st-val">${DB.appointments.filter(a=>a.status==='Confirmed').length}</div><div class="st-lbl">Confirmed</div></div></div>
+        <div class="stat-tile tile-rose" style="animation-delay:.3s"><span class="st-icon">💰</span><div><div class="st-val">₹${(rev/1000).toFixed(1)}k</div><div class="st-lbl">Revenue</div></div></div>
+        <div class="stat-tile tile-purple" style="animation-delay:.4s"><span class="st-icon">💊</span><div><div class="st-val">${DB.prescriptions.length}</div><div class="st-lbl">Prescriptions</div></div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:20px">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">📅 Today's Appointments</div>
+            <button class="btn btn-sky btn-sm" onclick="openM('mAppt')">+ Book</button>
+          </div>
+          ${DB.appointments.slice(0,4).map(a=>`
+            <div class="appt-strip">
+              <div class="appt-time">
+                <div class="day">${a.date.split('-')[2]} Feb</div>
+                <div class="hr">${a.time.split(' ')[0]}</div>
+              </div>
+              <div style="flex:1">
+                <div style="font-weight:800;font-size:14px">${a.patient}</div>
+                <div style="font-size:12px;color:var(--text-mute);margin-top:2px">${a.doctor}</div>
+                <div style="font-size:11px;color:var(--text-mute)">${a.reason}</div>
+              </div>
+              <span class="badge ${a.status==='Confirmed'?'bg-mint':a.status==='Pending'?'bg-peach':'bg-sky'}">${a.status}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="card-title">💰 Revenue</div></div>
+          <div class="card-body">
+            ${DB.invoices.map(i=>`
+              <div style="margin-bottom:14px">
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span style="font-size:13px;font-weight:700">${i.patient}</span>
+                  <span style="font-size:13px;font-weight:800">₹${i.total.toLocaleString()}</span>
+                </div>
+                <div class="pbar"><div class="pfill" style="width:${Math.min(100,(i.total/4000)*100)}%;background:${i.status==='Paid'?'linear-gradient(90deg,#10b981,#34d399)':'linear-gradient(90deg,#f97316,#fb923c)'}"></div></div>
+                <div style="margin-top:4px;text-align:right"><span class="badge ${i.status==='Paid'?'bg-mint':'bg-peach'}">${i.status}</span></div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>`;
+
+  } else if(role==='doctor') {
+    const mine = DB.appointments.filter(a=>a.doctor===CU.name);
+    const myDoc = DB.doctors.find(d=>d.name===CU.name);
+    el.innerHTML = `
+      <div class="stats-row">
+        <div class="stat-tile tile-sky"><span class="st-icon">📅</span><div><div class="st-val">${mine.length}</div><div class="st-lbl">My Appointments</div></div></div>
+        <div class="stat-tile tile-mint"><span class="st-icon">👧</span><div><div class="st-val">${myDoc?.patients||0}</div><div class="st-lbl">My Patients</div></div></div>
+        <div class="stat-tile tile-peach"><span class="st-icon">💊</span><div><div class="st-val">${DB.prescriptions.filter(p=>p.doctor===CU.name).length}</div><div class="st-lbl">Prescriptions</div></div></div>
+        <div class="stat-tile tile-rose"><span class="st-icon">⭐</span><div><div class="st-val">4.9</div><div class="st-lbl">Rating</div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div class="card-title">📅 My Appointments Today</div>
+          <button class="btn btn-sky btn-sm" onclick="openM('mAppt')">+ Book</button>
+        </div>
+        ${mine.length ? mine.map(a=>`
+          <div class="appt-strip">
+            <div class="appt-time">
+              <div class="day">${a.date.split('-')[2]} Feb</div>
+              <div class="hr">${a.time.split(' ')[0]}</div>
+            </div>
+            <div style="flex:1">
+              <div style="font-weight:800;font-size:14px">${a.patient}</div>
+              <div style="font-size:12px;color:var(--text-mute)">${a.type} · ${a.reason}</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span class="badge ${a.status==='Confirmed'?'bg-mint':a.status==='Pending'?'bg-peach':'bg-sky'}">${a.status}</span>
+              <button class="btn btn-xs btn-mint" onclick="openRxFor('${a.patient}')">💊 Rx</button>
+            </div>
+          </div>
+        `).join('') : `<div class="empty"><div class="empty-illo">📅</div><p>No appointments yet!</p></div>`}
+      </div>`;
+
+  } else {
+    const child = CU.child||CU.name;
+    const mine  = DB.appointments.filter(a=>a.patient===child);
+    const myRx  = DB.prescriptions.filter(p=>p.patient===child);
+    const myInv = DB.invoices.filter(i=>i.patient===child);
+    el.innerHTML = `
+      <div class="alert alert-mint">
+        <span style="font-size:22px">👋</span>
+        <div>Welcome back, <strong>${CU.name}</strong>! Here's a quick look at <strong>${child}'s</strong> health today. 🌟</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-tile tile-sky"><span class="st-icon">📅</span><div><div class="st-val">${mine.length}</div><div class="st-lbl">Appointments</div></div></div>
+        <div class="stat-tile tile-mint"><span class="st-icon">💊</span><div><div class="st-val">${myRx.length}</div><div class="st-lbl">Prescriptions</div></div></div>
+        <div class="stat-tile tile-peach"><span class="st-icon">🧾</span><div><div class="st-val">${myInv.length}</div><div class="st-lbl">Invoices</div></div></div>
+      </div>
+      <div class="chips">
+        <div class="chip" style="background:linear-gradient(135deg,#e0f9ff,#cff4ff);color:var(--teal);border-color:#bae6fd" onclick="go('appointments')">📅 Book Appointment</div>
+        <div class="chip" style="background:linear-gradient(135deg,#d4f7ec,#a7f3d0);color:var(--green-d);border-color:#a7f3d0" onclick="go('prescriptions')">💊 View Prescriptions</div>
+        <div class="chip" style="background:linear-gradient(135deg,#fff7ed,#fed7aa);color:var(--orange);border-color:#fed7aa" onclick="go('billing')">🧾 My Bills</div>
+      </div>
+      ${mine.length?`
+      <div class="card">
+        <div class="card-head"><div class="card-title">📅 ${child}'s Appointments</div></div>
+        ${mine.slice(0,3).map(a=>`
+          <div class="appt-strip">
+            <div class="appt-time">
+              <div class="day">${a.date.split('-')[2]} Feb</div>
+              <div class="hr">${a.time.split(' ')[0]}</div>
+            </div>
+            <div style="flex:1">
+              <div style="font-weight:800;font-size:14px">${a.doctor}</div>
+              <div style="font-size:12px;color:var(--text-mute)">${a.type}</div>
+            </div>
+            <span class="badge ${a.status==='Confirmed'?'bg-mint':a.status==='Pending'?'bg-peach':'bg-sky'}">${a.status}</span>
+          </div>
+        `).join('')}
+      </div>`:``}`;
+  }
+}
+
+// ─────────────────────────────────────────────────────────
+//  DOCTORS
+// ─────────────────────────────────────────────────────────
+function renderDoctors() {
+  const el = document.getElementById('contentArea');
+  el.innerHTML = `
+    <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+      ${CU.role==='admin'?`<button class="btn btn-sky" onclick="openM('mAddDoc')">➕ Add New Doctor</button>`:''}
+    </div>
+    <div class="doc-grid">
+      ${DB.doctors.map(d=>`
+        <div class="doc-card">
+          <div class="doc-avatar" style="animation-delay:${Math.random()*.5}s">${d.emoji}</div>
+          <div class="doc-name">${d.name}</div>
+          <div class="doc-spec">${d.spec}</div>
+          <div class="doc-stats">
+            <span class="badge bg-sky">📅 ${d.patients} patients</span>
+            <span class="badge bg-mint">⭐ 4.8</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-mute);margin-bottom:14px">
+            ${d.exp} experience · <strong style="color:var(--green)">₹${d.fee}</strong> fee
+          </div>
+          <div style="display:flex;gap:8px;justify-content:center">
+            ${CU.role==='patient'?`<button class="btn btn-sky btn-sm" onclick="openM('mAppt')">📅 Book</button>`:''}
+            ${CU.role==='admin'?`
+              <button class="btn btn-ghost btn-sm" onclick="toast('✏️ Edit feature coming soon!')">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="removeDoc(${d.id})">Remove</button>
+            `:''}
+            ${CU.role==='doctor'?`<button class="btn btn-outline btn-sm" onclick="toast('📋 Viewing profile')">View Profile</button>`:''}
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+function removeDoc(id) {
+  if(confirm('Remove this doctor?')) {
+    DB.doctors=DB.doctors.filter(d=>d.id!==id);
+    toast('🗑️ Doctor removed.','err');
+    renderDoctors();
+  }
+}
+
+function addDoc() {
+  const name=document.getElementById('dName').value.trim();
+  if(!name){toast('Please enter doctor name','err');return}
+  DB.doctors.push({id:DB.doctors.length+1,name:name.startsWith('Dr.')?name:'Dr. '+name,spec:document.getElementById('dSpec').value,email:document.getElementById('dEmail').value||'new@kiddocare.com',phone:document.getElementById('dPhone').value||'—',exp:document.getElementById('dExp').value||'1 year',fee:parseInt(document.getElementById('dFee').value)||700,patients:0,status:'Active',emoji:'🧑‍⚕️'});
+  closeM('mAddDoc');toast('✅ Doctor added!','ok');renderDoctors();
+}
+
+// ─────────────────────────────────────────────────────────
+//  PATIENTS
+// ─────────────────────────────────────────────────────────
+function renderPatients() {
+  const el = document.getElementById('contentArea');
+  const list = CU.role==='doctor' ? DB.patients.filter(p=>DB.appointments.some(a=>a.doctor===CU.name&&a.patient===p.name)) : DB.patients;
+
+  el.innerHTML = `
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">👧 Children Records</div>
+        <span style="font-size:12px;color:var(--text-mute);font-weight:700">${list.length} children</span>
+      </div>
+      ${list.map(p=>`
+        <div class="pat-row">
+          <div class="pat-avatar" style="background:linear-gradient(135deg,#fce4ff,#ede9fe)">${p.emoji}</div>
+          <div style="flex:1">
+            <div style="font-weight:800;font-size:14px">${p.name} <span style="font-size:12px;color:var(--text-mute);font-weight:600">(Age ${p.age})</span></div>
+            <div style="font-size:12px;color:var(--text-mute)">Parent: ${p.parent} · ${p.phone}</div>
+            <div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap">
+              <span class="badge bg-rose">🩸 ${p.blood}</span>
+              <span class="badge bg-peach">🏥 ${p.condition}</span>
+              <span class="badge bg-gray">Last: ${p.lastVisit}</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="badge bg-mint">✅ ${p.status}</span>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-xs btn-mint" onclick="openRxFor('${p.name}')">💊 Rx</button>
+              <button class="btn btn-xs btn-ghost" onclick="toast('📋 Viewing ${p.name}\\'s history')">History</button>
+            </div>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────
+//  APPOINTMENTS
+// ─────────────────────────────────────────────────────────
+function renderAppts() {
+  const el = document.getElementById('contentArea');
+  let list = DB.appointments;
+  if(CU.role==='doctor')  list=list.filter(a=>a.doctor===CU.name);
+  if(CU.role==='patient') list=list.filter(a=>a.patient===(CU.child||CU.name));
+
+  el.innerHTML = `
+    ${CU.role==='patient'?`<div class="alert alert-sky">📅 Book new appointments or track existing ones for <strong>${CU.child}</strong> below.</div>`:''}
+    <div style="display:flex;justify-content:flex-end;margin-bottom:16px">
+      ${CU.role!=='doctor'?`<button class="btn btn-sky" onclick="prepAppt()">📅 Book Appointment</button>`:''}
+    </div>
+    <div class="card">
+      <div class="card-head"><div class="card-title">📅 All Appointments</div></div>
+      ${list.length ? list.map(a=>`
+        <div class="appt-strip">
+          <div class="appt-time">
+            <div class="day">${a.date.split('-')[2]} Feb</div>
+            <div class="hr">${a.time.split(' ')[0]}</div>
+          </div>
+          <div style="flex:1;min-width:0">
+            ${CU.role!=='patient'?`<div style="font-weight:800">${a.patient}</div>`:''}
+            ${CU.role!=='doctor'?`<div style="font-size:12px;font-weight:700;color:var(--teal)">${a.doctor}</div>`:''}
+            <div style="font-size:12px;color:var(--text-mute)">${a.type} · ${a.reason}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <select class="ss" onchange="updAppt(${a.id},this.value)">
+              <option ${a.status==='Confirmed'?'selected':''}>Confirmed</option>
+              <option ${a.status==='Pending'?'selected':''}>Pending</option>
+              <option ${a.status==='Completed'?'selected':''}>Completed</option>
+              <option ${a.status==='Cancelled'?'selected':''}>Cancelled</option>
+            </select>
+            <div style="display:flex;gap:5px">
+              ${CU.role==='doctor'?`<button class="btn btn-xs btn-mint" onclick="openRxFor('${a.patient}')">💊 Rx</button>`:''}
+              <button class="btn btn-xs btn-danger" onclick="delAppt(${a.id})">✕</button>
+            </div>
+          </div>
+        </div>
+      `).join('') : `<div class="empty"><div class="empty-illo">📅</div><p>No appointments found</p></div>`}
+    </div>`;
+}
+
+function prepAppt() {
+  document.getElementById('aPatientGroup').style.display = CU.role==='patient'?'none':'block';
+  document.getElementById('aDate').value = new Date().toISOString().split('T')[0];
+  openM('mAppt');
+}
+
+function updAppt(id,s) {
+  const a=DB.appointments.find(a=>a.id===id);
+  if(a){a.status=s;toast(`✅ Status updated to ${s}`,'ok')}
+}
+
+function delAppt(id) {
+  if(confirm('Cancel this appointment?')){
+    DB.appointments=DB.appointments.filter(a=>a.id!==id);
+    toast('🗑️ Appointment cancelled','err');
+    renderAppts();
+  }
+}
+
+function bookAppt() {
+  const doctor  = document.getElementById('aDoctor').value.split(' — ')[0];
+  const patient = CU.role==='patient'?(CU.child||CU.name):document.getElementById('aPatient').value.split(' (')[0];
+  const date    = document.getElementById('aDate').value;
+  const time    = document.getElementById('aTime').value;
+  const reason  = document.getElementById('aReason').value||'General check-up';
+  const type    = document.getElementById('aType').value;
+  if(!date){toast('Please select a date','err');return}
+  DB.appointments.push({id:DB.appointments.length+1,patient,doctor,date,time,type,status:'Confirmed',reason});
+  closeM('mAppt');toast('🎉 Appointment booked successfully!','ok');renderAppts();
+}
+
+// ─────────────────────────────────────────────────────────
+//  PRESCRIPTIONS
+// ─────────────────────────────────────────────────────────
+function renderRx() {
+  const el = document.getElementById('contentArea');
+  const child = CU.child||CU.name;
+  let list = DB.prescriptions;
+  if(CU.role==='doctor')  list=list.filter(p=>p.doctor===CU.name);
+  if(CU.role==='patient') list=list.filter(p=>p.patient===child);
+
+  el.innerHTML = `
+    ${CU.role==='patient'?`<div class="alert alert-mint">💊 These are the prescriptions written by your child's doctor. Always follow the instructions carefully. 🌟</div>`:''}
+    ${CU.role!=='patient'?`<div style="display:flex;justify-content:flex-end;margin-bottom:16px"><button class="btn btn-mint" onclick="openM('mRx')">✍️ New Prescription</button></div>`:''}
+    ${list.length ? list.map(rx=>`
+      <div class="rx-strip">
+        <div class="rx-head">
+          <div>
+            <div style="font-family:'Baloo 2',cursive;font-size:17px;font-weight:700;color:var(--navy)">${rx.patient} <span style="font-size:13px;color:var(--text-mute);font-weight:600">(${rx.age})</span></div>
+            <div style="font-size:12px;color:var(--text-mute);margin-top:2px">🩺 ${rx.doctor} · 📅 ${rx.date}</div>
+            <span class="badge bg-peach" style="margin-top:6px">🏥 ${rx.diag}</span>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;color:var(--text-mute);margin-bottom:4px">Duration</div>
+            <div style="font-weight:800;font-size:14px;color:var(--teal)">${rx.dur||'—'}</div>
+            ${rx.fu?`<div style="font-size:11px;color:var(--text-mute);margin-top:4px">Follow-up: <strong style="color:var(--navy)">${rx.fu}</strong></div>`:''}
+          </div>
+        </div>
+        <div class="rx-body">
+          <div style="font-size:11px;font-weight:800;color:var(--teal);letter-spacing:1px;margin-bottom:8px;text-transform:uppercase">💊 Medications</div>
+          ${rx.meds.split('\n').map(m=>`<div class="rx-med"><span style="font-size:18px">💊</span> ${m}</div>`).join('')}
+          ${rx.notes?`
+            <div style="margin-top:12px;background:var(--yellow);border-radius:10px;padding:12px 14px;border-left:3px solid #fbbf24">
+              <div style="font-size:11px;font-weight:800;color:#a16207;margin-bottom:4px">📝 DOCTOR'S NOTES</div>
+              <div style="font-size:13px;font-weight:600;color:#713f12">${rx.notes}</div>
+            </div>
+          `:''}
+          ${CU.role!=='patient'?`
+            <div style="margin-top:12px;display:flex;gap:8px">
+              <button class="btn btn-xs btn-ghost" onclick="toast('🖨️ Printing...')">🖨️ Print</button>
+              <button class="btn btn-xs btn-danger" onclick="delRx(${rx.id})">🗑️ Delete</button>
+            </div>
+          `:''}
+        </div>
+      </div>
+    `).join('') : `<div class="empty"><div class="empty-illo">💊</div><p>No prescriptions found</p></div>`}`;
+}
+
+function openRxFor(patient) {
+  document.getElementById('rxPatient').value = patient;
+  openM('mRx');
+}
+
+function saveRx() {
+  const patient=document.getElementById('rxPatient').value.trim();
+  if(!patient){toast('Enter patient name','err');return}
+  DB.prescriptions.push({id:DB.prescriptions.length+1,patient,age:document.getElementById('rxAge').value||'—',doctor:CU.name,date:new Date().toISOString().split('T')[0],diag:document.getElementById('rxDiag').value||'General',meds:document.getElementById('rxMeds').value||'As prescribed',notes:document.getElementById('rxNotes').value,dur:document.getElementById('rxDur').value,fu:document.getElementById('rxFU').value});
+  closeM('mRx');toast('💊 Prescription saved!','ok');renderRx();
+}
+
+function delRx(id) {
+  if(confirm('Delete this prescription?')){DB.prescriptions=DB.prescriptions.filter(r=>r.id!==id);toast('🗑️ Deleted','err');renderRx()}
+}
+
+// ─────────────────────────────────────────────────────────
+//  BILLING
+// ─────────────────────────────────────────────────────────
+function renderBilling() {
+  const el = document.getElementById('contentArea');
+  const child = CU.child||CU.name;
+  let list = DB.invoices;
+  if(CU.role==='patient') list=list.filter(i=>i.patient===child);
+
+  const paid = list.filter(i=>i.status==='Paid').reduce((s,i)=>s+i.total,0);
+  const pend = list.filter(i=>i.status==='Pending').reduce((s,i)=>s+i.total,0);
+
+  el.innerHTML = `
+    <div class="stats-row">
+      <div class="stat-tile tile-mint"><span class="st-icon">✅</span><div><div class="st-val">₹${paid.toLocaleString()}</div><div class="st-lbl">Total Paid</div></div></div>
+      <div class="stat-tile tile-peach"><span class="st-icon">⏳</span><div><div class="st-val">₹${pend.toLocaleString()}</div><div class="st-lbl">Pending</div></div></div>
+      <div class="stat-tile tile-sky"><span class="st-icon">🧾</span><div><div class="st-val">${list.length}</div><div class="st-lbl">Invoices</div></div></div>
+    </div>
+    ${CU.role==='admin'?`<div style="display:flex;justify-content:flex-end;margin-bottom:16px"><button class="btn btn-peach" onclick="openM('mInv')">🧾 New Invoice</button></div>`:''}
+    ${list.map(inv=>`
+      <div class="inv-card">
+        <div class="inv-head">
+          <div>
+            <div style="font-family:'Baloo 2',cursive;font-size:15px;font-weight:700;color:var(--teal)">${inv.id}</div>
+            <div style="font-size:13px;font-weight:800;color:var(--navy)">${inv.patient}</div>
+            <div style="font-size:12px;color:var(--text-mute)">${inv.doctor} · ${inv.date}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-family:'Baloo 2',cursive;font-size:22px;font-weight:800;color:var(--navy)">₹${inv.total.toLocaleString()}</div>
+            <select class="ss" onchange="updInv('${inv.id}',this.value)">
+              <option ${inv.status==='Paid'?'selected':''}>Paid</option>
+              <option ${inv.status==='Pending'?'selected':''}>Pending</option>
+              <option ${inv.status==='Partial'?'selected':''}>Partial</option>
+            </select>
+          </div>
+        </div>
+        <div class="inv-body">${inv.services.join(' &nbsp;·&nbsp; ')}</div>
+      </div>
+    `).join('')}`;
+}
+
+function updInv(id,s) {
+  const i=DB.invoices.find(i=>i.id===id);
+  if(i){i.status=s;toast(`✅ Invoice ${id} → ${s}`,'ok')}
+}
+
+function genInvoice() {
+  const id='INV-'+String(DB.invoices.length+1).padStart(3,'0');
+  DB.invoices.push({id,patient:document.getElementById('invPat').value,doctor:document.getElementById('invDoc').value,date:new Date().toISOString().split('T')[0],services:['Consultation ₹700'],total:700,status:document.getElementById('invStatus').value});
+  closeM('mInv');toast('🧾 Invoice '+id+' generated!','ok');renderBilling();
+}
+
+// ─────────────────────────────────────────────────────────
+//  SYSTEM
+// ─────────────────────────────────────────────────────────
+function renderSystem() {
+  const el = document.getElementById('contentArea');
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+      <div class="card">
+        <div class="card-head"><div class="card-title">⚙️ Tech Stack</div></div>
+        <div class="card-body">
+          ${[['🐍','Django + DRF','Backend Framework','bg-sky'],['🐘','PostgreSQL 15','Primary Database','bg-lavender'],['⚡','Redis 7.0','Cache Layer','bg-rose'],['🦄','Gunicorn','WSGI Server (4 workers)','bg-mint'],['🔐','JWT Auth','Access + Refresh Tokens','bg-peach'],['🐳','Docker','Containerization','bg-sky'],['🚀','Render','Cloud Deployment','bg-yellow']].map(([icon,name,desc,cls])=>`
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1.5px solid #f0f9ff">
+              <div style="display:flex;align-items:center;gap:10px">
+                <span style="font-size:20px">${icon}</span>
+                <div>
+                  <div style="font-weight:800;font-size:13px">${name}</div>
+                  <div style="font-size:11px;color:var(--text-mute)">${desc}</div>
+                </div>
+              </div>
+              <span class="badge ${cls}">Active</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">📊 Performance</div></div>
+        <div class="card-body">
+          <div class="alert alert-sky" style="margin-bottom:16px">⚡ Redis cache hit: <strong>94%</strong> — Dashboard 2ms vs 120ms DB</div>
+          ${[['API Response','18ms avg',90,'linear-gradient(90deg,#34d399,#10b981)'],['Cache Hit Rate','94%',94,'linear-gradient(90deg,#38bdf8,#0ea5e9)'],['DB Query Time','8ms avg',85,'linear-gradient(90deg,#fb923c,#f97316)'],['System Uptime','99.9%',100,'linear-gradient(90deg,#c4b5fd,#8b5cf6)']].map(([lbl,val,pct,bg])=>`
+            <div style="margin-bottom:16px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                <span style="font-size:13px;font-weight:700">${lbl}</span>
+                <span style="font-size:13px;font-weight:800;color:var(--navy)">${val}</span>
+              </div>
+              <div class="pbar"><div class="pfill" style="width:${pct}%;background:${bg}"></div></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">🔐 Security</div></div>
+        <div class="card-body">
+          ${[['✅','JWT Authentication','Stateless token-based auth with refresh rotation'],['✅','Role-Based Access Control','Admin, Doctor, Patient permission scopes'],['✅','Environment Variables','Secrets stored in .env, never in source'],['✅','Debug = False','Production mode, no stack trace leaks'],['✅','SSL PostgreSQL','Encrypted DB connection'],['✅','CORS Protection','Allowed origins whitelist only']].map(([s,t,d])=>`
+            <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1.5px solid #f0f9ff">
+              <span style="font-size:16px">${s}</span>
+              <div><div style="font-weight:800;font-size:13px">${t}</div><div style="font-size:12px;color:var(--text-mute)">${d}</div></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">🚀 Roadmap</div></div>
+        <div class="card-body">
+          ${[['🔄','Load Balancing','Nginx upstream, horizontal scale'],['🗄️','DB Read Replicas','Route reads to PostgreSQL replicas'],['⚡','Redis Clustering','Multi-node cache for HA'],['📧','Celery Tasks','Email alerts, PDF generation'],['🌐','CDN Integration','CloudFront for static assets']].map(([icon,t,d])=>`
+            <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1.5px solid #f0f9ff">
+              <span style="font-size:22px">${icon}</span>
+              <div><div style="font-weight:800;font-size:13px">${t}</div><div style="font-size:12px;color:var(--text-mute)">${d}</div></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────
+//  UTILS
+// ─────────────────────────────────────────────────────────
+function openM(id){document.getElementById(id).classList.add('open')}
+function closeM(id){document.getElementById(id).classList.remove('open')}
+
+function toast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.innerHTML=msg; t.className='toast show '+(type||'');
+  setTimeout(()=>{t.className='toast'},3200);
+}
+
+document.querySelectorAll('.overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')});
+});
+
+window.addEventListener('load',()=>{
+  const s=sessionStorage.getItem('kc_user');
+  if(s){CU=JSON.parse(s);launchApp()}
+});
+</script>
+</body>
+</html>
