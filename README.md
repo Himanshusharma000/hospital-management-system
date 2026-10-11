@@ -1,20 +1,35 @@
 # 🏥 Pediatric Hospital Management System
 
-A browser-based pediatric hospital management interface focused on organizing patient-facing workflows and healthcare information in a responsive UI.
+A browser-based pediatric hospital management interface designed to organize patient-facing healthcare information and common hospital workflow sections in a responsive UI.
 
 ## ✨ Highlights
+
 - Pediatric-focused healthcare interface
-- Responsive browser UI
+- Responsive browser-based UI
 - Structured sections for hospital workflows
-- Single-page HTML implementation for easy demonstration
+- Single-page HTML implementation for straightforward demonstration
+- Healthcare-domain information architecture
 
 ## 🛠️ Tech Stack
+
 `HTML5` `CSS3` `JavaScript`
 
-## 🚀 Run locally
-Open `pediatric-hms (3).html` in a modern browser.
+## 🚀 Run Locally
 
-## 🎯 Portfolio value
-This project demonstrates frontend development, responsive UI design, information architecture, and healthcare-domain application design.
+Open the HTML entry file in a modern browser:
 
-> Portfolio project. It is a demonstration interface and is not intended for production medical use.
+```text
+pediatric-hms (3).html
+```
+
+No build step is required.
+
+## 🧠 What This Demonstrates
+
+- Frontend fundamentals
+- Responsive UI design
+- Information architecture
+- Healthcare-domain interface design
+- Organizing a user-facing application around a real-world workflow
+
+> Portfolio project. This is a demonstration interface and is not intended for production medical use.
